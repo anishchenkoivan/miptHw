@@ -18,12 +18,13 @@ public class Player implements Runnable {
                 if (!game.set.contains(generatedNumber)) {
                     game.set.add(generatedNumber);
                     this.score++;
+                    game.latch.countDown();
                 }
             }
             try {
-                Thread.sleep(5);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                return;
             }
         }
     }

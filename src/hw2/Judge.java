@@ -1,4 +1,5 @@
 package hw2;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 
 public class Judge implements Runnable{
@@ -16,14 +17,13 @@ public class Judge implements Runnable{
         for (Player player : players) {
             executor.submit(player);
         }
-        while (game.set.size() < game.n) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            game.latch.await();
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        } finally {
+            executor.shutdownNow();
         }
-        executor.shutdownNow();
         System.out.println(getWinner().name);
     }
 
