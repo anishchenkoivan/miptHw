@@ -1,4 +1,2 @@
-abcd a
-akjnoij oaijs pojas
-asoj a
-ask b
+abcd
+efgh
